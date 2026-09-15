@@ -1,0 +1,6 @@
+import { currentPrice, jsonError, requireUser, serializeOrder } from "@/lib/api";
+import { db } from "@/lib/db";
+export async function POST(_, context) { var _a; const user = await requireUser(); if (!user)
+    return jsonError("Authentication required.", 401); const { id } = await context.params; const source = await db.order.findFirst({ where: { id, customerId: user.id }, include: { items: true } }); if (!source)
+    return jsonError("Order not found.", 404); const price = await currentPrice(); if (!price.available)
+    return jsonError((_a = price.reason) !== null && _a !== void 0 ? _a : "Requests are unavailable.", 409); const count = await db.order.count(); const order = await db.order.create({ data: { orderNumber: `NTM-${1042 + count}`, customerId: user.id, pickupLocation: source.pickupLocation, deliveryLocation: source.deliveryLocation, instructions: source.instructions, deliveryFee: price.fee, pricingSnapshot: { mode: price.mode, rule: price.rule, fee: price.fee }, items: { create: source.items.map((item) => ({ name: item.name, quantity: item.quantity })) }, payment: { create: { amount: price.fee } } }, include: { items: true, payment: true } }); return Response.json({ order: serializeOrder(order) }, { status: 201 }); }

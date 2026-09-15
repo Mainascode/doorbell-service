@@ -1,4 +1,0 @@
-import { jsonError, requireAdmin } from "@/lib/api";
-import { db } from "@/lib/db";
-export async function GET() { if (!await requireAdmin()) return jsonError("Operator access required.", 403); return Response.json({ rules: await db.pricingRule.findMany({ orderBy: { startTime: "asc" } }) }); }
-export async function PATCH(request: Request) { if (!await requireAdmin()) return jsonError("Operator access required.", 403); const { id, price, active } = await request.json().catch(() => ({})); if (typeof id !== "string" || (typeof price !== "number" && typeof active !== "boolean")) return jsonError("A rule id and a price or active value are required."); return Response.json({ rule: await db.pricingRule.update({ where: { id }, data: { ...(typeof price === "number" ? { price: Math.max(0, Math.round(price)) } : {}), ...(typeof active === "boolean" ? { active } : {}) } }) }); }

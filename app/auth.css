@@ -1,0 +1,15 @@
+.auth-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.auth-grid .field {
+  min-width: 0;
+}
+
+@media (max-width: 800px) {
+  .auth-grid {
+    grid-template-columns: 1fr;
+  }
+}
