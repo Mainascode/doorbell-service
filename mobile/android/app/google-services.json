@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "800947069538",
+    "project_id": "doorbell-service-2a455",
+    "storage_bucket": "doorbell-service-2a455.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800947069538:android:788bfc328ec4ccde81a73b",
+        "android_client_info": {
+          "package_name": "com.nitume.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4yCYC_YBzewgFiE7TqxtbTvk0AKob4TQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
